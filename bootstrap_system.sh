@@ -14,7 +14,7 @@ timedatectl set-timezone Europe/Berlin
 timedatectl set-ntp true
 
 # add vim and wget
-sudo pacman -Sy vim wget
+sudo pacman -Sy vim 
 
 # Getting installation type
 
@@ -23,13 +23,13 @@ read installation_type
 
 if [ "$installation_type" == "server" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_server.json
-    mv user_configuratlion_server.json user_configuration.json
+    cp user_configuratlion_server.json user_configuration.json
 elif [ "$installation_type" == "desktop" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_desktop.json
-    mv user_configuratlion_desktop.json user_configuration.json
+    cp user_configuratlion_desktop.json user_configuration.json
 elif [ "$installation_type" == "vm" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_vm.json
-    mv user_configuratlion_vm.json user_configuration.json
+    cp user_configuratlion_vm.json user_configuration.json
 else
     echo "Invalid installation type. Exiting..."
     exit 1
@@ -45,9 +45,9 @@ if [ "$revise_config" == "y" ]; then
 fi
 
 # setting hostname
-echo "Setting hostname..."
-echo "Enter hostname: "
-read hostname
+#echo "Setting hostname..."
+#echo "Enter hostname: "
+#read hostname
 
 # get credentials
 echo "Setting up credentials..."
