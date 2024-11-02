@@ -18,8 +18,7 @@ sudo pacman -Sy vim
 
 # Getting installation type
 
-echo "Enter installation type (server, desktop, vm): "
-read installation_type
+echo "Enter installation type (server, desktop, vm): " && read installation_type
 
 if [ "$installation_type" == "server" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_server.json
@@ -41,7 +40,7 @@ echo "Using $installation_type ..."
 echo "Do you want to revise the configuration? (y/n)"
 read -r revise_config
 if [ "$revise_config" == "y" ]; then
-	vim user_configuration.json
+	vim $conf_name
 fi
 
 # setting hostname
@@ -98,11 +97,11 @@ cat << EOF > user_credentials.json
             "username": "${username}"
         }
     ],
-    "encryption_password": "${encryption_password}"
+    "!encryption_password": "${encryption_password}"
 }
 EOF
 
 # Start archinstall
-archinstall --config user_configuration.json --creds ${conf_name}
+archinstall --config $(conf_name) --creds user_credentials.json
 
 
