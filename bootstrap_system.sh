@@ -23,13 +23,13 @@ read installation_type
 
 if [ "$installation_type" == "server" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_server.json
-    cp user_configuratlion_server.json user_configuration.json
+    conf_name="user_configuration_server.json"
 elif [ "$installation_type" == "desktop" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_desktop.json
-    cp user_configuratlion_desktop.json user_configuration.json
+    conf_name="user_configuration_desktop.json"
 elif [ "$installation_type" == "vm" ]; then
     wget https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main/user_configuration_vm.json
-    cp user_configuratlion_vm.json user_configuration.json
+    conf_name="user_configuration_vm.json"
 else
     echo "Invalid installation type. Exiting..."
     exit 1
@@ -103,6 +103,6 @@ cat << EOF > user_credentials.json
 EOF
 
 # Start archinstall
-archinstall --config user_configuration.json --creds user_credentials.json
+archinstall --config user_configuration.json --creds ${conf_name}
 
 
