@@ -13,7 +13,7 @@
         "config_type": "default_layout",
         "device_modifications": [
             {
-                "device": "/dev/vda",
+                "device": "/dev/nvme0n1",
                 "partitions": [
                     {
                         "btrfs": [],
@@ -107,7 +107,7 @@
             "45ad91f3-ebcd-4f95-ac1f-d658ea4eb2b2"
         ]
     },
-    "hostname": "archlinux",
+    "hostname": "archy",
     "kernels": [
         "linux",
         "linux-lts"
@@ -119,6 +119,7 @@
     },
     "mirror_config": null,
     "network_config": {
+        "dhcp": true,
         "type": "iso"
     },
     "no_pkg_lookups": false,
@@ -127,19 +128,17 @@
     "packages": [
         "greetd",
         "zsh",
-        "neovim",
+        "vim",
         "firefox",
         "git",
         "kitty",
-        "vim",
-        "zathura",
         "unzip",
         "gparted"
     ],
     "parallel downloads": 0,
     "profile_config": {
         "gfx_driver": "All open-source",
-        "greeter": "lightdm-gtk-greeter",
+        "greeter": "greetd",
         "profile": {
             "custom_settings": {
                 "Sway": {
