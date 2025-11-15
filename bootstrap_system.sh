@@ -50,10 +50,10 @@ if ! wget "$config_url" -O "user_config.json"; then
 fi
 
 # get config-files
-read -p "Do you want to revise the configuration? (y/n)" revise_config
-if [ "$revise_config" == "y" ]; then
-	vim user_config.json
-fi
+#read -p "Do you want to revise the configuration? (y/n)" revise_config
+#if [ "$revise_config" == "y" ]; then
+#	vim user_config.json
+#fi
 
 # setting hostname
 #echo "Setting hostname..."
@@ -62,17 +62,7 @@ fi
 
 
 read -p "Enter root password: " root_password
-
-username=""
-while true; do
-    read -p  "Enter username (no spaces): " username
-    if [[ "$username" =~ ^[a-zA-Z0-9_]+$ ]]; then
-        break
-    else
-        echo "Invalid username. Please try again."
-    fi
-done
-
+read -p "Enter user name: " username
 read -p "Enter user password: " password
 read -p "Enter encryption password: " encryption_password
 
@@ -104,6 +94,7 @@ fi
 
 echo "*************** Installation completed successfully. Starting re-works **************"
 
+echo "Chroot into arch..."
 arch-chroot /mnt
 
 # clone complete repos
