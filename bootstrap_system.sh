@@ -50,10 +50,10 @@ if ! wget "$config_url" -O "user_config.json"; then
 fi
 
 
-read -ps "Enter root password: " root_password
+read -p "Enter root password: " root_password
 read -p "Enter user name: " username
-read -ps "Enter user password: " password
-read -ps "Enter encryption password: " encryption_password
+read -p "Enter user password: " password
+read -p "Enter encryption password: " encryption_password
 
 # write config
 echo "Writing UserCredentials..."
@@ -83,15 +83,14 @@ fi
 
 echo "*************** Installation completed successfully. Starting re-works **************"
 
-read -p "Chroot into arch... Do you want to continue? (y/n)" chroot
-if [ "$chroot" != "y" ]; then
+read -p "Cloning repositories to arch-chroot (y/n)" clone_repos
+if [ "$clone_repos" != "y" ]; then
 	exit
 fi
-arch-chroot /mnt
 
 # clone complete repos
-git clone $REPO_URL /home/$USER/archinstall
-git clone $DOT_URL /home/$USER/dotfiles
+git clone $REPO_URL /mnt/home/$USER/archinstall
+git clone $DOT_URL /mnt/home/$USER/dotfiles
 
 # install packages
 read -p "Do you want to install packages? (y/n)" install_packages    
@@ -107,27 +106,6 @@ if [ "$install_dotfiles" == "y" ]; then
 	cd /home/$USER/dotfiles
 	stow
 fi
-
-# restore home?
-read -p "Do you want to restore your home? (y/n)" restore_home
-if [ "$restore_home" == "y" ]; then
-	echo "Restoring home..."
-
-	# TODO
-	echo "Will home be (1) btrfs or (2) zfs?"
-	read -r home_type
-	if [ "$home_type" == "1" ]; then
-		echo "Your home is btrfs"
-	elif [ "$home_type" == "2" ]; then
-		echo "Please proceed manually, if you really want to... Aborting".
-		exit 1
-	fi
-
-	echo "Restore from (1) local server, (2) remote server, (3) USB: "
-	read -r restore_from
-	# TODO
-fi
-
 
 
 # Do you want to reboot?
