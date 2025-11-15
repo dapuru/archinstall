@@ -53,7 +53,7 @@ echo "Using $installation_type ..."
 echo "Do you want to revise the configuration? (y/n)"
 read -r revise_config
 if [ "$revise_config" == "y" ]; then
-	vim $conf_name
+	vim user_config.json
 fi
 
 # setting hostname
