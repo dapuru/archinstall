@@ -104,7 +104,7 @@ read -p "Do you want to install dotfiles? (y/n)" install_dotfiles
 if [ "$install_dotfiles" == "y" ]; then
 	echo "Installing dotfiles..."
 	cd /home/$USER/dotfiles
-	stow
+	stow *
 fi
 
 
