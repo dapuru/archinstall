@@ -19,21 +19,21 @@ timedatectl set-timezone Europe/Berlin
 timedatectl set-ntp true
 
 # add vim and wget
-#sudo pacman -Sy vim 
+sudo pacman -Sy vim wget
 
 # Getting installation type
 
-echo "Enter installation type (server, desktop, vm): " && read installation_type
+read -p "Enter installation type ([s]erver, [d]esktop, [v]m): " installation_type
 
 # Determine configuration file URL based on installation type
 case "$installation_type" in
-    server)
+    s)
         config_url="${BASE_URL}/user_configuration_server.json"
         ;;
-    desktop)
+    d)
         config_url="${BASE_URL}/user_configuration_desktop.json"
         ;;
-    vm)
+    v)
         config_url="${BASE_URL}/user_configuration_vm.json"
         ;;
     *)
@@ -41,6 +41,7 @@ case "$installation_type" in
         exit 1
         ;;
 esac
+echo "Using configuration file: $config_url"
 
 # Download configuration with integrity check
 if ! wget "$config_url" -O "user_config.json"; then
@@ -49,9 +50,7 @@ if ! wget "$config_url" -O "user_config.json"; then
 fi
 
 # get config-files
-echo "Using $installation_type ..."
-echo "Do you want to revise the configuration? (y/n)"
-read -r revise_config
+read -p "Do you want to revise the configuration? (y/n)" revise_config
 if [ "$revise_config" == "y" ]; then
 	vim user_config.json
 fi
@@ -81,8 +80,7 @@ root_password=$(get_password "Enter root password: ")
 
 username=""
 while true; do
-    echo "Enter username (no spaces): "
-    read username
+    read -p  "Enter username (no spaces): " username
     if [[ "$username" =~ ^[a-zA-Z0-9_]+$ ]]; then
         break
     else
