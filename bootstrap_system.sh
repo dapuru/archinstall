@@ -49,29 +49,18 @@ if ! wget "$config_url" -O "user_config.json"; then
     exit 1
 fi
 
-# get config-files
-#read -p "Do you want to revise the configuration? (y/n)" revise_config
-#if [ "$revise_config" == "y" ]; then
-#	vim user_config.json
-#fi
 
-# setting hostname
-#echo "Setting hostname..."
-#echo "Enter hostname: "
-#read hostname
-
-
-read -p "Enter root password: " root_password
+read -ps "Enter root password: " root_password
 read -p "Enter user name: " username
-read -p "Enter user password: " password
-read -p "Enter encryption password: " encryption_password
+read -ps "Enter user password: " password
+read -ps "Enter encryption password: " encryption_password
 
 # write config
 echo "Writing UserCredentials..."
 
 cat << EOF > user_credentials.json	
 {
-    "!root-password": "${root_password}",
+    "!root_password": "${root_password}",
     "!users": [
         {
             "!password": "${password}",
@@ -84,17 +73,20 @@ cat << EOF > user_credentials.json
 EOF
 
 echo "Starting archinstall..."
-read -p "Do you want to run archinstall automatically or only load config? (y/n)" run_archinstall
+read -p "Do you want to run archinstall now? (y/n)" run_archinstall
 
 if [ "$run_archinstall" == "y" ]; then
     archinstall --config "user_config.json" --creds user_credentials.json
 else
-    archinstall --config "user_config.json"
+    exit 1
 fi
 
 echo "*************** Installation completed successfully. Starting re-works **************"
 
-echo "Chroot into arch..."
+read -p "Chroot into arch... Do you want to continue? (y/n)" chroot
+if [ "$chroot" != "y" ]; then
+	exit
+fi
 arch-chroot /mnt
 
 # clone complete repos
@@ -102,16 +94,14 @@ git clone $REPO_URL /home/$USER/archinstall
 git clone $DOT_URL /home/$USER/dotfiles
 
 # install packages
-echo "Do you want to install packages? (y/n)"
-read -r install_packages    
+read -p "Do you want to install packages? (y/n)" install_packages    
 if [ "$install_packages" == "y" ]; then
 	echo "Installing packages..."
 	pacman -S --needed - < /home/$USER/archinstall/pkglist.txt
 fi
 
 # install dotfiles
-echo "Do you want to install dotfiles? (y/n)"
-read -r install_dotfiles
+read -p "Do you want to install dotfiles? (y/n)" install_dotfiles
 if [ "$install_dotfiles" == "y" ]; then
 	echo "Installing dotfiles..."
 	cd /home/$USER/dotfiles
@@ -119,8 +109,7 @@ if [ "$install_dotfiles" == "y" ]; then
 fi
 
 # restore home?
-echo "Do you want to restore your home? (y/n)"
-read -r restore_home
+read -p "Do you want to restore your home? (y/n)" restore_home
 if [ "$restore_home" == "y" ]; then
 	echo "Restoring home..."
 
@@ -142,8 +131,7 @@ fi
 
 
 # Do you want to reboot?
-echo "Do you want to reboot? (y/n)"
-read -r reboot
+read -p "Do you want to reboot? (y/n)" reboot
 if [ "$reboot" == "y" ]; then
 	echo "Rebooting..."
 	reboot
