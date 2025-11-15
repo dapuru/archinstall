@@ -108,11 +108,13 @@ cat << EOF > user_credentials.json
 }
 EOF
 
+echo "Starting archinstall..."
+read -p "Do you want to run archinstall automatically or only load config? (y/n)" run_archinstall
 
-# Start archinstall
-if ! archinstall --config "user_config.json" --creds user_credentials.json; then
-    log "Failed to run archinstall."
-    exit 1
+if [ "$run_archinstall" == "y" ]; then
+    archinstall --config "user_config.json" --creds user_credentials.json
+else
+    archinstall --config "user_config.json"
 fi
 
 echo "*************** Installation completed successfully. Starting re-works **************"
