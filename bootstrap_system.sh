@@ -60,23 +60,8 @@ fi
 #echo "Enter hostname: "
 #read hostname
 
-# Function to get matching passwords
-get_password() {
-    while true; do
-        echo "$1"
-        read -s password
-        echo "Re-enter password: "
-        read -s re_password
-        if [ "$password" == "$re_password" ]; then
-            echo "$password"
-            return
-        else
-            echo "Passwords do not match. Please try again."
-        fi
-    done
-}
 
-root_password=$(get_password "Enter root password: ")
+read -p "Enter root password: " root_password
 
 username=""
 while true; do
@@ -88,11 +73,11 @@ while true; do
     fi
 done
 
-password=$(get_password "Enter password: ")
-encryption_password=$(get_password "Enter encryption password: ")
+read -p "Enter user password: " password
+read -p "Enter encryption password: " encryption_password
 
 # write config
-echo "Writing UserConfig..."
+echo "Writing UserCredentials..."
 
 cat << EOF > user_credentials.json	
 {
