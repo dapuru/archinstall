@@ -7,6 +7,7 @@
 BASE_URL="https://raw.githubusercontent.com/dapuru/archinstall/refs/heads/main"
 REPO_URL="https://github.com/dapuru/archinstall.git"
 DOT_URL="https://github.com/dapuru/dotfiles.git"
+DEFAULT_USER="daniel"
 
 echo "Setting defaults..."
 # loadkeys DE
@@ -49,11 +50,37 @@ if ! wget "$config_url" -O "user_config.json"; then
     exit 1
 fi
 
+echo "Enter root password: "
+read -p -s root_password
+echo "Re-Enter root password: "
+read -p -s root_password_comp
 
-read -p "Enter root password: " root_password
+if [ "$root_password" != "$root_password_comp" ]; then
+    echo "passwords do not match!"
+    exit 1
+fi
+
 read -p "Enter user name: " username
-read -p "Enter user password: " password
-read -p "Enter encryption password: " encryption_password
+
+echo "Enter user password: "
+read -p -s password
+echo "Re-Enter user password: "
+read -p -s user_password_comp
+
+if [ "$password" != "$user_password_comp" ]; then
+    echo "passwords do not match!"
+    exit 1
+fi
+
+echo "Enter encryption password: "
+read -p -s encryption_password
+echo "Re-Enter encryption password: "
+read -p -s encryption_password_comp
+
+if [ "$encryption_password" != "$encryption_password_comp" ]; then
+    echo "passwords do not match!"
+    exit 1    
+fi
 
 # write config
 echo "Writing UserCredentials..."
@@ -86,25 +113,17 @@ echo "*************** Installation completed successfully. Starting re-works ***
 read -p "Cloning repositories to arch-chroot (y/n)" clone_repos
 if [ "$clone_repos" != "y" ]; then
 	exit
+    else
+        clone complete repos
+        git clone $REPO_URL /mnt/home/$DEFAULT_USER/archinstall
+        #git clone $DOT_URL /mnt/home/$DEFAULT_USER/dotfiles
 fi
 
-# clone complete repos
-git clone $REPO_URL /mnt/home/$USER/archinstall
-git clone $DOT_URL /mnt/home/$USER/dotfiles
-
-# install packages
-read -p "Do you want to install packages? (y/n)" install_packages    
-if [ "$install_packages" == "y" ]; then
-	echo "Installing packages..."
-	pacman -S --needed - < /home/$USER/archinstall/pkglist.txt
-fi
-
-# install dotfiles
-read -p "Do you want to install dotfiles? (y/n)" install_dotfiles
-if [ "$install_dotfiles" == "y" ]; then
-	echo "Installing dotfiles..."
-	cd /home/$USER/dotfiles
-	stow *
+# reworks
+read -p "Do you want to chroot and run reworks? (y/n)" do_reworks
+if [ "$do_reworks" == "y" ]; then
+	echo "Chroot and run reworks..."
+        chroot /mnt /bin/bash -c "cd /home/$DEFAULT_USER/archinstall && ./reworks.sh"	
 fi
 
 

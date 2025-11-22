@@ -1,15 +1,15 @@
-Before:
+
+Before install
+
+[code]
+# init script for archlinux
+loadkeys de-latin1
+sudo pacman -Sy vim wget git
+git clone https://github.com/dapuru/archinstall
+bash ./archinstall/bootstrap_system.sh
+[/code]
+
+After install
 
 loadkeys de-latin1
-sudo pacman -Sy vim wget nerd-font-complete
-wget https://raw.githubusercontentcom/dapuru/archinstall/refs/heads/main/bootstra_system.sh
-bash bootstra_system.sh
-
-After:
-
-arch-chroot /mnt
-pacman -S --needed - < /home/$USER/archinstall/pkglist.txt
-cd /home/$USER/dotfiles
-stow *
-/home/$USER/Images/wallpaper/whitesur.png
-
+bash ./archinstall/reworks.sh
