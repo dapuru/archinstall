@@ -1,5 +1,6 @@
 autofs
 autofs-debug
+botan2
 brother-hll2360d
 cava-debug
 davs2
@@ -11,10 +12,8 @@ gtk-engine-murrine
 gtk2
 http-parser
 js78
-libappindicator-gtk3
 libguess
 libguess-debug
-libindicator-gtk3
 libvisual
 metis
 neofetch
@@ -27,8 +26,11 @@ python-future
 python-nspektr
 python-pep517
 python-progress
+python-pyqt5-webengine
 python-pyrsistent
 python-pyrsistent-debug
+qt5-webchannel
+qt5-webengine
 rest-debug
 sesh-bin-debug
 spirv-cross

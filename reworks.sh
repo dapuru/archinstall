@@ -100,12 +100,20 @@ echo "Setting defaults..."
 # loadkeys DE
 loadkeys de-latin1
 # get needed tools
-sudo pacman -Sy vim wget veracrypt keepassxc stow fzf git borg nfs-utils
+sudo pacman -Sy vim wget veracrypt keepassxc stow fzf git borg nfs-utils otf-font-awesome
 
 read -p "Do you want to install further packages using pacman? (y/n)" install_packages    
 if [ "$install_packages" == "y" ]; then
 	echo "Installing packages..."
-	pacman -S --needed - < /home/$DEFAULT_USER/archinstall/pkglist.txt
+        # see https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#List_of_installed_packages
+	#sudo pacman -S --needed - < /home/$DEFAULT_USER/archinstall/pkglist.txt
+        sudo pacman -Syu
+        sudo pacman -S --needed $(comm -12 <(pacman -Slq | sort) <(sort /home/$DEFAULT_USER/archinstall/pkglist.txt))
+fi
+
+read -p "Do you want to install further packages using yay? (y/n)" install_packages
+if [ "$install_packages" == "y" ]; then
+    sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 fi
 
 # prepare mountpoints
