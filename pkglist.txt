@@ -108,6 +108,7 @@ nfs-utils
 nnn
 notmuch
 nwg-dock
+obsidian
 openssh
 openssl-1.1
 otf-font-awesome
@@ -130,6 +131,8 @@ python-pip
 qemu-desktop
 ranger
 remmina
+rofi
+rpi-imager
 sane
 sassc
 sed
@@ -171,6 +174,8 @@ vi
 vim
 virt-manager
 virt-viewer
+virtualbox
+virtualbox-host-modules-lts
 vlc
 vlc-plugins-all
 vorta
@@ -205,6 +210,7 @@ xorg-xwayland
 xterm
 yay-bin
 yazi
+yt-dlp
 zathura
 zathura-pdf-mupdf
 zfs-dkms

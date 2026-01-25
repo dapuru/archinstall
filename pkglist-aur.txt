@@ -33,7 +33,6 @@ qt5-webchannel
 qt5-webengine
 rest-debug
 sesh-bin-debug
-spirv-cross
 spirv-cross-debug
 swaylock-effects-git
 swaylock-effects-git-debug
