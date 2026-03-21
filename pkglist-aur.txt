@@ -15,12 +15,16 @@ js78
 libguess
 libguess-debug
 libvisual
+logiops
+logiops-debug
 metis
 neofetch
+openssl-1.1
 pam-gnupg
 pam-gnupg-debug
 plasma-framework5
 python-async-timeout
+python-backports-zstd
 python-contextlib2
 python-future
 python-nspektr
@@ -45,7 +49,7 @@ wlogout
 wlogout-debug
 wlroots0.16
 xf86-video-vmware
-yay-bin
+yay
 yay-bin-debug
 yay-debug
 zfs-dkms

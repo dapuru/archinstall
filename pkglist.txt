@@ -24,6 +24,7 @@ dmenu
 dmenu-extended-git
 duf
 efibootmgr
+ex-vi-compat
 fakeroot
 fastfetch
 fcgi
@@ -82,6 +83,7 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
+logiops
 lxappearance
 lynx
 m4
@@ -150,6 +152,7 @@ swayidle
 swaylock-effects-git
 swaync
 swtpm
+sxiv
 syncthing
 television
 texinfo
@@ -170,7 +173,6 @@ urlview
 usbutils
 vdirsyncer
 veracrypt
-vi
 vim
 virt-manager
 virt-viewer
@@ -208,7 +210,7 @@ xorg-server
 xorg-xinit
 xorg-xwayland
 xterm
-yay-bin
+yay
 yazi
 yt-dlp
 zathura
